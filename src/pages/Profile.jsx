@@ -1,7 +1,9 @@
-export default function Home() {
+function Profile() {
     return (
         <div className="text-4xl font-bold">
-            Explore
+            Profile
         </div>
     )
-}
+  }
+  
+  export default Profile

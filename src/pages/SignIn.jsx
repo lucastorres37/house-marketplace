@@ -1,7 +1,9 @@
-export default function Home() {
+function SignIn() {
     return (
         <div className="text-4xl font-bold">
-            Explore
+            Sign In
         </div>
-    )
+  )
 }
+
+export default SignIn
