@@ -1,8 +1,8 @@
 import Image from "next/image"
 import { useRouter } from "next/router"
 import ExploreIcon from '../../public/assets/svg/exploreIcon.svg'
-import Offers from '../../public/assets/svg/localOfferIcon.svg'
-import Profile from '../../public/assets/svg/personIcon.svg'
+import OffersIcon from '../../public/assets/svg/localOfferIcon.svg'
+import ProfileIcon from '../../public/assets/svg/personIcon.svg'
 
 
 function Navbar() {
@@ -34,7 +34,7 @@ function Navbar() {
                         </p>
                     </li>
                     <li className="navbarListItem" onClick={() => router.push('/Offers')}>
-                        <Offers 
+                        <OffersIcon 
                             className={pathMathRoute('/Offers') ? 'tabIsActive' : 'tabIsntActive'}
                         />
                         <p className={
@@ -47,7 +47,7 @@ function Navbar() {
                         </p>
                     </li>
                     <li className="navbarListItem" onClick={() => router.push('/Profile')}>
-                        <Profile
+                        <ProfileIcon
                             className={pathMathRoute('/Profile') ? 'tabIsActive' : 'tabIsntActive'}
                         />
                         <p className={

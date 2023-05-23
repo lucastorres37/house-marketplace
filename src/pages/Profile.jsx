@@ -1,8 +1,8 @@
+import SignIn from "./SignIn"
+
 function Profile() {
     return (
-        <div className="text-4xl font-bold">
-            Profile
-        </div>
+        <SignIn />
     )
   }
   
