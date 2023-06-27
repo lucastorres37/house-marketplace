@@ -1,5 +1,8 @@
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import {db} from '../../firebase.config'
 import ArrowRightIcon from '../../public/assets/svg/keyboardArrowRightIcon.svg'
 
 function SignUp() {
@@ -18,13 +21,38 @@ function SignUp() {
         }))
     }
 
+    const router = useRouter()
+
+    const onSubmit = async (e) => {
+        
+        e.preventDefault()
+
+
+        try{
+            const auth = getAuth()
+
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+
+            const user = userCredential.user
+
+            updateProfile(auth.currentUser, {
+                displayName: name
+            })
+
+            router.push('/')
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="pageContainer">
             <header>
                 <p className="pageHeader">Welcome Back!</p>
             </header>
 
-            <form>
+            <form onSubmit={onSubmit}>
                 <input 
                     type="text" 
                     className="nameInput" 
@@ -68,9 +96,9 @@ function SignUp() {
                     <p className="signUpText">
                         Sign Up
                     </p>
-                    <b className="signUpButton">
+                    <button className="signUpButton">
                         <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
-                    </b>
+                    </button>
                 </div>
 
             </form>
