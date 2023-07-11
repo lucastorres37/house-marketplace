@@ -1,8 +1,9 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
-import {db} from '../../firebase.config'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
+import { db } from '../../firebase.config'
 import ArrowRightIcon from '../../public/assets/svg/keyboardArrowRightIcon.svg'
 
 function SignUp() {
@@ -19,8 +20,8 @@ function SignUp() {
             ...prevState,
             [e.target.id]: e.target.value,
         }))
-    }
-
+    } 
+ 
     const router = useRouter()
 
     const onSubmit = async (e) => {
@@ -39,12 +40,18 @@ function SignUp() {
                 displayName: name
             })
 
+            const formDataCopy = {...formData}
+            delete formDataCopy.password
+            formDataCopy.timestamp = serverTimestamp()
+
+            await setDoc(doc(db, 'users', user.uid), formDataCopy)
+
             router.push('/')
             
         } catch (error) {
             console.log(error)
         }
-    }
+    } 
 
     return (
         <div className="pageContainer">
@@ -113,4 +120,3 @@ function SignUp() {
 }
 
 export default SignUp
-
