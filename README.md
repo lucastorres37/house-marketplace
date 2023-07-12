@@ -1,6 +1,6 @@
 # House Marketplace
 
-Find and list houses for sale or for rent. This is a React / Firebase v9 project from the Brad Traversy course.
+Find and list houses for sale or for rent. This is a React / Firebase v9 project from the [Brad Traversy](https://github.com/bradtraversy) course.
 
 ## Usage
 
