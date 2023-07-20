@@ -24,10 +24,8 @@ function SignUp() {
  
     const router = useRouter()
 
-    const onSubmit = async (e) => {
-        
+    const onSubmit = async (e) => {        
         e.preventDefault()
-
 
         try{
             const auth = getAuth()

@@ -1,5 +1,8 @@
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { app } from "../../firebase.config"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import ArrowRightIcon from '../../public/assets/svg/keyboardArrowRightIcon.svg'
 
 function SignIn() {
@@ -9,6 +12,8 @@ function SignIn() {
         password: ''
     })
     const {email, password} = formData
+    
+    const router = useRouter()
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -17,13 +22,29 @@ function SignIn() {
         }))
     }
 
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        
+        try {
+            const auth = getAuth(app)
+    
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    
+            if (userCredential.user) {
+                router.push('/Profile')
+            }            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="pageContainer">
             <header>
                 <p className="pageHeader">Welcome Back!</p>
             </header>
 
-            <form>
+            <form onSubmit={onSubmit}>
                 <input 
                     type="email" 
                     className="emailInput" 
@@ -59,11 +80,10 @@ function SignIn() {
                     <p className="signInText">
                         Sign In
                     </p>
-                    <b className="signInButton">
+                    <button className="signInButton">
                         <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
-                    </b>
+                    </button>
                 </div>
-
             </form>
 
             {/* {Google OAuth} */}
